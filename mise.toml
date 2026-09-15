@@ -14,3 +14,46 @@ fnox = "1.33.1"
 "npm:skills" = "1.5.24"
 "cargo:taplo-cli" = "0.10.0"
 "cargo:sd" = "1.0.0"
+shellcheck = "0.11.0"
+
+[hooks]
+postinstall = { task = "git:install-hooks" }
+
+[tasks."check"]
+depends = ["lint"]
+
+[tasks."lint"]
+depends = ["lint:configs", "lint:code", "lint:docs"]
+
+[tasks."lint:configs"]
+run = "taplo lint mise.toml rumdl.toml"
+
+[tasks."lint:code"]
+run = """
+shellcheck --shell bash .mise/tasks/git/*.sh shell-scripts/log.sh
+if [ -f post-push.local.sh ]; then
+  shellcheck --shell bash post-push.local.sh
+fi
+"""
+
+[tasks."lint:docs"]
+run = "rumdl check"
+
+[tasks."pre-commit"]
+alias = "pre-merge-commit"
+run = [{ task = "git:validate-commit" }]
+
+[tasks."commit-msg"]
+run = 'mise run --output interleave commitlint -- --edit "$@"'
+
+[tasks."fix"]
+depends = ["fix:docs"]
+
+[tasks."fix:docs"]
+run = "rumdl check --fix"
+
+[tasks."commitlint"]
+run = "commitlint --extends \"$(mise where npm:@commitlint/config-conventional)/node_modules/@commitlint/config-conventional/lib/index.js\""
+
+[tasks."agent:on:stop"]
+run = [{ task = "fix" }, { task = "check" }]

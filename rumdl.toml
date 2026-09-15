@@ -1,0 +1,5 @@
+[global]
+disable = ["MD013", "MD041", "MD031", "MD009"]
+exclude = [".git", "node_modules", ".cache"]
+flavor = "standard"
+cache-dir = ".cache/rumdl"
