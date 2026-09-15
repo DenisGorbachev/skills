@@ -12,8 +12,8 @@ fnox = "1.33.1"
 "npm:@commitlint/cli" = "19.6.0"
 "npm:@commitlint/types" = "19.5.0"
 "npm:skills" = "1.5.24"
-"cargo:taplo-cli" = "0.10.0"
 "cargo:sd" = "1.0.0"
+fd = "10.4.2"
 shellcheck = "0.11.0"
 
 [hooks]
@@ -23,17 +23,20 @@ postinstall = { task = "git:install-hooks" }
 depends = ["lint"]
 
 [tasks."lint"]
-depends = ["lint:configs", "lint:code", "lint:docs"]
+depends = ["lint:shell", "lint:docs"]
 
-[tasks."lint:configs"]
-run = "taplo lint mise.toml rumdl.toml"
-
-[tasks."lint:code"]
+[tasks."lint:shell"]
 run = """
-shellcheck --shell bash .mise/tasks/git/*.sh shell-scripts/log.sh
-if [ -f post-push.local.sh ]; then
-  shellcheck --shell bash post-push.local.sh
-fi
+fd --type f --extension sh --extension bash --extension zsh . . .mise/tasks --exec-batch shellcheck --shell bash
+for file in ./*; do
+  case "$file" in
+    *.sh)
+      if [ -f "$file" ]; then
+        shellcheck --shell bash "$file"
+      fi
+      ;;
+  esac
+done
 """
 
 [tasks."lint:docs"]
