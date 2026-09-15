@@ -1,0 +1,16 @@
+min_version = "2026.7.13"
+
+[settings]
+idiomatic_version_file_enable_tools = ["rust"]
+task.output = "keep-order"
+
+[tools]
+node = "24.15.0"
+fnox = "1.33.1"
+"aqua:rvben/rumdl" = "0.1.0"
+"npm:@commitlint/config-conventional" = "19.6.0"
+"npm:@commitlint/cli" = "19.6.0"
+"npm:@commitlint/types" = "19.5.0"
+"npm:skills" = "1.5.24"
+"cargo:taplo-cli" = "0.10.0"
+"cargo:sd" = "1.0.0"
