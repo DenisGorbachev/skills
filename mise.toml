@@ -14,10 +14,13 @@ fnox = "1.33.1"
 "npm:skills" = "1.5.24"
 "cargo:sd" = "1.0.0"
 fd = "10.4.2"
-shellcheck = "0.11.0"
+"github:ewhauser/shuck" = "0.2.2"
 
 [hooks]
 postinstall = { task = "git:install-hooks" }
+
+[env]
+SHUCK_CACHE_DIR = "{{config_root}}/.cache"
 
 [tasks."check"]
 depends = ["lint"]
@@ -26,18 +29,8 @@ depends = ["lint"]
 depends = ["lint:shell", "lint:docs"]
 
 [tasks."lint:shell"]
-run = """
-fd --type f --extension sh --extension bash --extension zsh . . .mise/tasks --exec-batch shellcheck --shell bash
-for file in ./*; do
-  case "$file" in
-    *.sh)
-      if [ -f "$file" ]; then
-        shellcheck --shell bash "$file"
-      fi
-      ;;
-  esac
-done
-"""
+# Shuck 0.2.2 scans Git-ignored local files, so exclude them explicitly.
+run = "shuck check --extend-exclude '*.local.*' ."
 
 [tasks."lint:docs"]
 run = "rumdl check"
