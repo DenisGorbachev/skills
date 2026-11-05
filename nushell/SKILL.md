@@ -15,4 +15,4 @@ description: Use when reading or writing Nushell scripts.
 
 ## Scripts
 
-- Must have shebang: `#!/usr/bin/env -S nu --no-config-file`
+- Must have a `nu` shebang.
