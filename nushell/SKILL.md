@@ -16,3 +16,4 @@ description: Use when reading or writing Nushell scripts.
 ## Scripts
 
 - Must have a `nu` shebang.
+- Must not rely on global state (e.g. `umask`)
