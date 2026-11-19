@@ -11,7 +11,7 @@ description: Use when reading or writing Nushell scripts.
 
 ## Command invocations
 
-- Must use long options for all commands except `cd`, `cp`, `mv`, `rm`, `mkdir`, `ls`, `ln`, `chmod`, `chown`.
+- Must use long options for all commands except `cd`, `cp`, `mv`, `rm`, `mkdir`, `chmod`, `chown`.
 
 ## Scripts
 
