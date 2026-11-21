@@ -19,4 +19,5 @@ description: Use when reading or writing Nushell scripts.
 ## Scripts
 
 - Must have a `nu` shebang.
-- Must not rely on global state (e.g. `umask`)
+- Must not rely on global state (e.g. `umask`).
+- Should call `open` directly (`open` instead of `open | from json`) (it already parses common formats).
