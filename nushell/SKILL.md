@@ -12,6 +12,9 @@ description: Use when reading or writing Nushell scripts.
 ## Command invocations
 
 - Must use long options for all commands except `cd`, `cp`, `mv`, `rm`, `mkdir`, `chmod`, `chown`.
+- Should be direct (example: `^foo` instead of `^foo | complete`).
+  - It raises an error on non-zero exit.
+  - It trims the final newline.
 
 ## Scripts
 
