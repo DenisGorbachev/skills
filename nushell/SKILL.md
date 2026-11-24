@@ -20,5 +20,5 @@ description: Use when reading or writing Nushell scripts.
 
 - Must have a `nu` shebang.
 - Must not rely on global state (e.g. `umask`).
-- Must not print success messages.
+- Must not contain code for printing success messages.
 - Should call `open` directly (`open` instead of `open | from json`) (it already parses common formats).
